@@ -12,19 +12,21 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \ChatRoomEntity.timestamp, ascending: false)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var items: FetchedResults<ChatRoomEntity>
 
+    
     var body: some View {
         NavigationView {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
+
+//                    NavigationLink {
+//                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+//                    } label: {
+//                        Text(item.timestamp!, formatter: itemFormatter)
+//                    }
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -40,13 +42,14 @@ struct ContentView: View {
                     }
                 }
             }
-            Text("Select an item")
+            ChatInputField()
+            
         }
     }
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
+            let newItem = ChatRoomEntity(context: viewContext)
             newItem.timestamp = Date()
 
             do {
