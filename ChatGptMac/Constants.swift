@@ -9,6 +9,6 @@ import Foundation
 
 struct Constants {
     
-    let API_KEY = "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"
+    let API_KEY = ""
     
 }
