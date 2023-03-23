@@ -16,6 +16,13 @@
 		2095AF6D29CCD0820068511C /* ChatGptMacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095AF6C29CCD0820068511C /* ChatGptMacTests.swift */; };
 		2095AF7729CCD0820068511C /* ChatGptMacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095AF7629CCD0820068511C /* ChatGptMacUITests.swift */; };
 		2095AF7929CCD0820068511C /* ChatGptMacUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095AF7829CCD0820068511C /* ChatGptMacUITestsLaunchTests.swift */; };
+		2095AF8729CCD8340068511C /* ChatInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095AF8629CCD8340068511C /* ChatInputField.swift */; };
+		2095AF8929CCDB000068511C /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095AF8829CCDB000068511C /* MessageRow.swift */; };
+		209C415029CCEAFF00B38342 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209C414F29CCEAFF00B38342 /* Message.swift */; };
+		209C415329CD0CC600B38342 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 209C415229CD0CC600B38342 /* OpenAISwift */; };
+		209C415629CD0DA100B38342 /* OpenAIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209C415529CD0DA100B38342 /* OpenAIClient.swift */; };
+		209C415829CD0EBD00B38342 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209C415729CD0EBD00B38342 /* Constants.swift */; };
+		20D8500729CCE1690046F564 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D8500629CCE1690046F564 /* MessageEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +56,12 @@
 		2095AF7229CCD0820068511C /* ChatGptMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatGptMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2095AF7629CCD0820068511C /* ChatGptMacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptMacUITests.swift; sourceTree = "<group>"; };
 		2095AF7829CCD0820068511C /* ChatGptMacUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptMacUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2095AF8629CCD8340068511C /* ChatInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputField.swift; sourceTree = "<group>"; };
+		2095AF8829CCDB000068511C /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		209C414F29CCEAFF00B38342 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		209C415529CD0DA100B38342 /* OpenAIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIClient.swift; sourceTree = "<group>"; };
+		209C415729CD0EBD00B38342 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		20D8500629CCE1690046F564 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				209C415329CD0CC600B38342 /* OpenAISwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +113,9 @@
 		2095AF5429CCD0810068511C /* ChatGptMac */ = {
 			isa = PBXGroup;
 			children = (
+				209C415429CD0D6400B38342 /* Network */,
+				20D8500329CCE1380046F564 /* Models */,
+				2095AF8529CCD80E0068511C /* DetailViewScreens */,
 				2095AF5529CCD0810068511C /* ChatGptMacApp.swift */,
 				2095AF5729CCD0810068511C /* Persistence.swift */,
 				2095AF5C29CCD0810068511C /* ContentView.swift */,
@@ -106,6 +123,7 @@
 				2095AF6029CCD0810068511C /* ChatGptMac.entitlements */,
 				2095AF5929CCD0810068511C /* ChatGptMac.xcdatamodeld */,
 				2095AF6129CCD0810068511C /* Preview Content */,
+				209C415729CD0EBD00B38342 /* Constants.swift */,
 			);
 			path = ChatGptMac;
 			sourceTree = "<group>";
@@ -135,6 +153,40 @@
 			path = ChatGptMacUITests;
 			sourceTree = "<group>";
 		};
+		2095AF8529CCD80E0068511C /* DetailViewScreens */ = {
+			isa = PBXGroup;
+			children = (
+				2095AF8629CCD8340068511C /* ChatInputField.swift */,
+				2095AF8829CCDB000068511C /* MessageRow.swift */,
+			);
+			path = DetailViewScreens;
+			sourceTree = "<group>";
+		};
+		209C414E29CCEA9C00B38342 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				20D8500629CCE1690046F564 /* MessageEntity.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		209C415429CD0D6400B38342 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				209C415529CD0DA100B38342 /* OpenAIClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		20D8500329CCE1380046F564 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				209C414E29CCEA9C00B38342 /* CoreData */,
+				209C414F29CCEAFF00B38342 /* Message.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,6 +203,9 @@
 			dependencies = (
 			);
 			name = ChatGptMac;
+			packageProductDependencies = (
+				209C415229CD0CC600B38342 /* OpenAISwift */,
+			);
 			productName = ChatGptMac;
 			productReference = 2095AF5229CCD0810068511C /* ChatGptMac.app */;
 			productType = "com.apple.product-type.application";
@@ -223,6 +278,9 @@
 				Base,
 			);
 			mainGroup = 2095AF4929CCD0810068511C;
+			packageReferences = (
+				209C415129CD0CC600B38342 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+			);
 			productRefGroup = 2095AF5329CCD0810068511C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,6 +325,12 @@
 			files = (
 				2095AF5629CCD0810068511C /* ChatGptMacApp.swift in Sources */,
 				2095AF5829CCD0810068511C /* Persistence.swift in Sources */,
+				209C415629CD0DA100B38342 /* OpenAIClient.swift in Sources */,
+				2095AF8929CCDB000068511C /* MessageRow.swift in Sources */,
+				2095AF8729CCD8340068511C /* ChatInputField.swift in Sources */,
+				209C415829CD0EBD00B38342 /* Constants.swift in Sources */,
+				20D8500729CCE1690046F564 /* MessageEntity.swift in Sources */,
+				209C415029CCEAFF00B38342 /* Message.swift in Sources */,
 				2095AF5D29CCD0810068511C /* ContentView.swift in Sources */,
 				2095AF5B29CCD0810068511C /* ChatGptMac.xcdatamodeld in Sources */,
 			);
@@ -612,6 +676,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		209C415129CD0CC600B38342 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		209C415229CD0CC600B38342 /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 209C415129CD0CC600B38342 /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2095AF5929CCD0810068511C /* ChatGptMac.xcdatamodeld */ = {
