@@ -10,23 +10,23 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \ChatRoomEntity.timestamp, ascending: false)],
         animation: .default)
     private var items: FetchedResults<ChatRoomEntity>
-
+    
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(items) { item in
-
-//                    NavigationLink {
-//                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-//                    } label: {
-//                        Text(item.timestamp!, formatter: itemFormatter)
-//                    }
+                    
+                    //                    NavigationLink {
+                    //                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                    //                    } label: {
+                    //                        Text(item.timestamp!, formatter: itemFormatter)
+                    //                    }
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -42,16 +42,16 @@ struct ContentView: View {
                     }
                 }
             }
-            ChatInputField()
+            ChatDetailScreen()
             
         }
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = ChatRoomEntity(context: viewContext)
             newItem.timestamp = Date()
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -62,11 +62,11 @@ struct ContentView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {

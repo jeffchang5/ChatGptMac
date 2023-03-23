@@ -6,18 +6,34 @@
 //
 
 import Foundation
+import OpenAISwift
 
 class OpenAiClient {
     
-    let openAI = OpenAISwift(authToken: "TOKEN")
+    let openAI = OpenAISwift(authToken: Constants.API_KEY)
     
-    func sendMessage(text: String) {
-        openAI.sendCompletion(with: "Hello how are you") { result in // Result<OpenAI, OpenAIError>
-            switch result {
-            case .success(let success):
-                print(success.choices.first?.text ?? "")
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
+    var chatDelegate: ChatDelegate
+    
+    init (chatDelegate: ChatDelegate) {
+        self.chatDelegate = chatDelegate
+    }
+    
+    func sendMessage(text: String) async {
+        do {
+            let chat: [ChatMessage] = [
+                ChatMessage(role: .system, content: "You are a helpful assistant."),
+                ChatMessage(role: .user, content: "Who won the world series in 2020?"),
+                ChatMessage(role: .assistant, content: "The Los Angeles Dodgers won the World Series in 2020."),
+                ChatMessage(role: .user, content: "Where was it played?")
+            ]
+            
+            let result = try await openAI.sendChat(with: chat)
+            
+            chatDelegate.onSuccess(text: result.choices[0].message.content)
+            // use result
+        } catch {
+            // ...
+            chatDelegate.onSuccess(text: "Failure")
+        }
     }
 }

@@ -9,38 +9,39 @@ import Foundation
 import SwiftUI
 import CoreData
 
-struct ChatInputField: View {
+struct ChatDetailScreen: View {
+    
+    @ObservedObject var viewModel = ChatViewModel()
     
     @State var newMessage: String = ""
     
     @Environment(\.managedObjectContext) private var viewContext
-
     
     @State private var messages: [Message] = [
         Message( role: Role.USER,  content: "hello world", timestamp: Date())
     ]
-
-
+    
+    
     var body: some View {
         VStack {
-               List(messages) { message in
-                   MessageRow(message: message)
-               }
-               HStack {
-                   TextField("Type a message...", text: $newMessage)
-                       .textFieldStyle(RoundedBorderTextFieldStyle())
-                   Button(action: sendMessage) {
-                       Text("Send")
-                   }
-               }
-               .padding()
-           }
+            List(messages) { message in
+                MessageRow(message: message)
+            }
+            HStack {
+                TextField("Type a message...", text: $newMessage)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button(action: sendMessage) {
+                    Text("Send")
+                }
+            }
+            .padding()
+        }
     }
     
     func sendMessage() {
         guard !newMessage.isEmpty else { return }
         messages.append(
-            Message( role: Role.USER,  content: newMessage, timestamp: Date()))
+            Message(role: Role.USER,  content: newMessage, timestamp: Date()))
         newMessage = ""
     }
 }
