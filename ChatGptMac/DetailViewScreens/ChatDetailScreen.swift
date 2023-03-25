@@ -17,31 +17,40 @@ struct ChatDetailScreen: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State private var messages: [Message] = [
-        Message( role: Role.USER,  content: "hello world", timestamp: Date())
-    ]
-    
-    
     var body: some View {
-        VStack {
-            List(messages) { message in
-                MessageRow(message: message)
-            }
-            HStack {
-                TextField("Type a message...", text: $newMessage)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: sendMessage) {
-                    Text("Send")
+        ScrollViewReader { scrollView in
+            VStack {
+                ScrollView(.vertical) {
+                    LazyVStack(alignment: .leading) {
+                        ForEach(viewModel.messages) { message in
+                            MessageRow(message: message)
+                        }
+                    }
                 }
+                .onChange(of: viewModel.messages) { messages in
+                    withAnimation {
+                        scrollView.scrollTo(messages.last?.id, anchor: .bottom)
+                    }
+                }
+                HStack {
+                    TextField("Type a message...", text: $newMessage)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                        .onSubmit {
+                            sendMessage()
+                        }
+                    Button(action: sendMessage) {
+                        Text("Send")
+                    }
+                }
+                .padding()
             }
-            .padding()
         }
     }
     
     func sendMessage() {
         guard !newMessage.isEmpty else { return }
-        messages.append(
-            Message(role: Role.USER,  content: newMessage, timestamp: Date()))
+        viewModel.sendChat(message: Message(role: Role.USER,  content: newMessage, timestamp: Date()))
         newMessage = ""
     }
 }

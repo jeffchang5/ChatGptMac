@@ -4,54 +4,31 @@
 //
 //  Created by Jeffrey Chang on 3/23/23.
 //
-
+import Combine
 import Foundation
 
-class ChatViewModel : ObservableObject, ChatDelegate {
+class ChatViewModel : ObservableObject {
+    
     @Published var messages = [Message]()
     
     let openAI: OpenAiClient
     
     init() {
-        openAI = OpenAiClient(chatDelegate: self)
+        openAI = OpenAiClient()
     }
     
-    func sendChat(message: String) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.openAI.sendMessage(text: message)
-       }
+    func sendChat(message: Message) {
+        messages.append(message)
+        Task.detached {
+            let result = await self.openAI.sendMessage(messages: self.messages)
+            DispatchQueue.main.async {
+                // Update the UI with the result on the main thread
+                do {
+                    self.messages.append(try result.get())
+                } catch {
+                    print("Error: \(error)")
+                }
+            }
+        }
     }
-    
-    func onSuccess(text: String) {
-        
-    }
-    
-    func onFailure(text: String) {
-        
-    }
-    
-    
-
 }
-
-//class PokemonViewModel: ObservableObject {
-//    @Published var pokemon = [Pokemon]()
-//    @Published var filteredPokemon = [Pokemon]()
-//
-//    func fetchPokemon() {
-//        guard let url = URL(string: BASE_URL) else { return }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            guard let data = data?.parseData(removeString: "null,") else { return }
-//            guard let pokemon = try? JSONDecoder().decode([Pokemon].self, from: data) else { return }
-//
-//            DispatchQueue.main.async {
-//                self.pokemon = pokemon
-//            }
-//        }.resume()
-//    }
-//
-//    func filterPokemon(by filter: String) {
-//        filteredPokemon = pokemon.filter({ $0.type == filter })
-//    }
-//}

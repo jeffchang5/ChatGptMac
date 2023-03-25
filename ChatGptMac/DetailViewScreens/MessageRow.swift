@@ -20,11 +20,25 @@ struct MessageRow: View {
                 Text(message.role == Role.USER ? "user" : "bot")
                     .font(.caption)
                     .foregroundColor(.secondary)
+                
+                
                 Text(message.content)
                     .padding(10)
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                
+                
+                    .contextMenu(ContextMenu(menuItems: {
+                        Button(action: {
+                            let pasteboard = NSPasteboard.general
+                            pasteboard.clearContents()
+                            pasteboard.setString(message.content, forType: .string)
+                        }, label: {
+                            Text("Copy")
+                            Image(systemName: "doc.on.doc.fill")
+                        })
+                    }))
             }
             if message.role == Role.BOT {
                 Spacer()

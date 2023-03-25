@@ -12,11 +12,12 @@ enum Role {
     case USER, BOT
 }
 
-struct Message : Identifiable {
+struct Message : Identifiable, Equatable {
     
     let id = UUID()
     
     var content = ""
+    
     var timestamp: Date?
     
     var role: Role
